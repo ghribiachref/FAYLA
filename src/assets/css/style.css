@@ -201,12 +201,17 @@ a {
   padding: 7rem 0; }
   .product-section .product-item {
     text-align: center;
+    height: 100%;
     text-decoration: none;
     display: block;
     position: relative;
     padding-bottom: 50px;
     cursor: pointer; }
     .product-section .product-item .product-thumbnail {
+      width: 100%;            /* prend toute la largeur du conteneur */
+    max-width: 250px;       /* largeur fixe pour toutes les images */
+    height: 250px;          /* hauteur uniforme */
+    object-fit: cover;
       margin-bottom: 30px;
       position: relative;
       top: 0;
@@ -547,7 +552,7 @@ a {
     transition: .3s all ease; }
     .footer-section a:hover {
       color: rgba(47, 47, 47, 0.5); }
-  .footer-section .subscription-form {
+  /*.footer-section .subscription-form {
     margin-bottom: 40px;
     position: relative;
     z-index: 2;
@@ -580,16 +585,57 @@ a {
       .footer-section .subscription-form .form-control:-moz-placeholder {
         font-size: 14px; }
     .footer-section .subscription-form .btn {
-      border-radius: 10px !important; }
+      border-radius: 10px !important; }*/
   .footer-section .sofa-img {
     position: absolute;
     top: -200px;
     z-index: 1;
-    right: 0; }
-    .footer-section .sofa-img img {
-      max-width: 380px; }
-  .footer-section .links-wrap {
-    margin-top: 0px; }
+    right: 0;
+     /* Ajout pour responsive */
+    width: 20%; /* ou un pourcentage selon ton design */
+    max-width: 380px; /* taille max */
+   }
+    .footer-section .sofa-img {
+    position: absolute;
+    top: -200px;
+    right: 0;
+    z-index: 1;
+
+    width: 20%;       /* largeur relative */
+    max-width: 380px; /* taille max */
+}
+
+.footer-section .sofa-img img {
+    width: 100%;   /* prend toute la largeur de la div parent */
+    height: auto;  /* garde les proportions */
+}
+
+/* Ajustements pour tablettes et mobiles */
+@media (max-width: 992px) {
+    .footer-section .sofa-img {
+        top: -150px;
+        width: 30%;
+    }
+}
+
+@media (max-width: 768px) {
+    .footer-section .sofa-img {
+        top: -100px;
+        width: 40%;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-section .sofa-img {
+        position: relative; /* position relative pour mobile */
+        top: 0;
+        right: 0;
+        margin: 0 auto;
+        display: block;
+        width: 60%; /* plus large sur mobile */
+    }
+}
+
     @media (min-width: 992px) {
       .footer-section .links-wrap {
         margin-top: 54px; } }
