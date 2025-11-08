@@ -16,7 +16,7 @@
       <tr *ngFor="let product of cartService.cart">
         <td><img [src]="product.image" alt="product" class="img-fluid"></td>
         <td>{{ product.name }}</td>
-        <td>{{ product.price | currency }}</td>
+        <td>{{ product.price | currency:'DT':'symbol':'1.0-0' }}</td>
         <td>
           <div class="qty-buttons">
             <button (click)="decrease(product)">-</button>
@@ -24,14 +24,14 @@
             <button (click)="increase(product)">+</button>
           </div>
         </td>
-        <td>{{ product.price * product.quantity | currency }}</td>
+        <td>{{ product.price * product.quantity | currency:'DT':'symbol':'1.0-0' }}</td>
         <td><button class="remove-btn" (click)="remove(product)">X</button></td>
       </tr>
     </tbody>
   </table>
 
   <div class="cart-total">
-    <h3>Total: {{ cartService.getTotal() | currency }}</h3>
+    <h3>Total: {{ cartService.getTotal() | currency:'DT':'symbol':'1.0-0'}}</h3>
     <button class="checkout-btn">Proceed to Checkout</button>
   </div>
 </div>

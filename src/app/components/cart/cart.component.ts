@@ -15,8 +15,7 @@ export class CartComponent {
 
   constructor(public cartService: CartService) {
     // Example products
-    this.cartService.addToCart({id:1,name:'Product 1',price:49,quantity:1,image:'assets/images/product-1.png'});
-    this.cartService.addToCart({id:2,name:'Product 2',price:59,quantity:2,image:'assets/images/product-2.png'});
+    
   }
 
   increase(product: any) {

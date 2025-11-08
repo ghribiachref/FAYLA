@@ -38,35 +38,18 @@
 </div>
 
 
-      <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-        <a class="product-item" href="#">
-          <img src="assets/images/tsb.png" class="img-fluid product-thumbnail" alt="Nordic Chair">
-          <h3 class="product-title">TISSOT PRX</h3>
-          <strong class="product-price">69.00 DT</strong>
-          <span class="icon-cross"><img src="assets/images/cross.svg" class="img-fluid" alt="Remove"></span>
-        </a>
-      </div>
+     <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0" *ngFor="let product of products">
+  <div class="product-item">
+    <img [src]="product.image" class="img-fluid product-thumbnail" [alt]="product.name">
+    <h3 class="product-title">{{ product.name }}</h3>
+    <strong class="product-price">{{ product.price }} DT</strong>
 
-      <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-        <a class="product-item" href="#">
-          <img src="assets/images/cs.png" class="img-fluid product-thumbnail" alt="Kruzo Aero Chair">
-          <h3 class="product-title">CASIO QUARTZ</h3>
-          <strong class="product-price">59.00 DT</strong>
-          <span class="icon-cross"><img src="assets/images/cross.svg" class="img-fluid" alt="Remove"></span>
-        </a>
-      </div>
-
-      <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-        <a class="product-item" href="#">
-          <img src="assets/images/guess.png" class="img-fluid product-thumbnail" alt="Ergonomic Chair">
-          <h3 class="product-title">Guess women</h3>
-          <strong class="product-price">79.00 DT</strong>
-          <span class="icon-cross"><img src="assets/images/cross.svg" class="img-fluid" alt="Remove"></span>
-        </a>
-      </div>
-    </div>
+    <span class="icon-cross" (click)="addToCart(product); $event.stopPropagation(); $event.preventDefault()">
+      <img src="assets/images/cross.svg" class="img-fluid" alt="Add to Cart">
+    </span>
   </div>
 </div>
+
 <!-- End Product Section -->
 
 <!-- Start Why Choose Us Section -->

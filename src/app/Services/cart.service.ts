@@ -11,13 +11,18 @@ export class CartService {
   constructor() { }
 
   addToCart(product: Product) {
-    const existing = this.cart.find(p => p.id === product.id);
-    if (existing) {
-      existing.quantity += product.quantity;
-    } else {
-      this.cart.push({...product});
-    }
+  // Find if the product already exists in the cart
+  const existing = this.cart.find(p => p.id === product.id);
+
+  if (existing) {
+    // If exists, increase the quantity
+    existing.quantity += product.quantity ?? 1; // default to 1 if quantity is undefined
+  } else {
+    // If not, add a new product with at least quantity 1
+    this.cart.push({ ...product, quantity: product.quantity ?? 1 });
   }
+}
+
 
   removeFromCart(id: number) {
     this.cart = this.cart.filter(p => p.id !== id);
