@@ -1,0 +1,18 @@
+.logo-img {
+  height: 150px;
+  width: auto; /* garde les proportions */
+  transition: transform 0.3s ease;
+}
+
+.logo-img:hover {
+  transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .logo-img {
+    height: 20vw; /* hauteur = 20% de la largeur de l’écran */
+    max-height: 100px; /* limite pour qu’il ne devienne pas trop grand */
+    width: auto;
+  }
+}
