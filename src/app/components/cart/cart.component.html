@@ -1,26 +1,28 @@
-<div class="cart-container">
-  <h2>Cart</h2>
+<div class="cart-container" *ngIf="cartService.cart.length > 0; else emptyCart">
+  <h2>Votre panier</h2>
 
   <table class="cart-table">
     <thead>
       <tr>
         <th>Image</th>
-        <th>Product</th>
-        <th>Price</th>
-        <th>Quantity</th>
+        <th>Produit</th>
+        <th>Prix</th>
+        <th>Quantité</th>
         <th>Total</th>
-        <th>Remove</th>
+        <th>Supprimer</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let product of cartService.cart">
-        <td><img [src]="product.image" alt="product" class="img-fluid"></td>
+        <td><img [src]="product.image" alt="{{product.name}}" class="cart-img"></td>
         <td>{{ product.name }}</td>
         <td>{{ product.price | currency:'DT':'symbol':'1.0-0' }}</td>
         <td>
           <div class="qty-buttons">
             <button (click)="decrease(product)">-</button>
-            <input type="number" [(ngModel)]="product.quantity" (change)="cartService.updateQuantity(product.id, product.quantity)">
+            <input type="number" [(ngModel)]="product.quantity"
+                   (change)="cartService.updateQuantity(product.id, product.quantity)"
+                   min="1">
             <button (click)="increase(product)">+</button>
           </div>
         </td>
@@ -31,7 +33,16 @@
   </table>
 
   <div class="cart-total">
-    <h3>Total: {{ cartService.getTotal() | currency:'DT':'symbol':'1.0-0'}}</h3>
-    <button class="checkout-btn">Proceed to Checkout</button>
+    <h3>Total: {{ cartService.getTotal() | currency:'DT':'symbol':'1.0-0' }}</h3>
+    <button class="checkout-btn btn btn-primary" routerLink="/order">
+      Passer la commande
+    </button>
   </div>
 </div>
+
+<ng-template #emptyCart>
+  <div class="text-center py-5">
+    <h3>Votre panier est vide</h3>
+    <a routerLink="/home" class="btn btn-outline-primary mt-3">Continuer vos achats</a>
+  </div>
+</ng-template>

@@ -1,0 +1,10 @@
+.container { max-width: 600px; margin: 0 auto; }
+.form-label { font-weight: 500; }
+.invalid-feedback { display: block; font-size: 0.875em; }
+small { font-size: 0.8em; }
+.text-success { color: #28a745 !important; }
+.text-danger { color: #dc3545 !important; }
+.text-muted { color: #6c757d !important; }
+.btn-success:disabled { background-color: #6c757d; opacity: 0.65; }
+.card { border-radius: 12px; overflow: hidden; }
+.list-group-item { padding: 0.75rem 1rem; }
