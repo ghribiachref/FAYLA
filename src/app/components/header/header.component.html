@@ -16,10 +16,35 @@
         <li><a class="nav-link" href="#">Blog</a></li>
         <li><a class="nav-link" href="#">Contact us</a></li>
       </ul>
-      <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-        <li><a class="nav-link" href="#"><img src="assets/images/user.svg" alt="user"></a></li>
-        <li><a class="nav-link" [routerLink]="'/cart'"><img src="assets/images/cart.svg" alt="cart"></a></li>
-      </ul>
+      <!-- Dans ton header (nav) -->
+<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+  <li><a class="nav-link" href="#"><img src="assets/images/user.svg" alt="user"></a></li>
+  <li class="position-relative">
+    <a class="nav-link" [routerLink]="'/cart'">
+      <img src="assets/images/cart.svg" alt="cart">
+      <!-- Badge avec le nombre total d'articles -->
+      <span *ngIf="cartService.cart.length > 0"
+            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+        {{ cartService.getTotalItems() }}
+        <span class="visually-hidden">articles dans le panier</span>
+      </span>
+    </a>
+  </li>
+</ul>
+
+<!-- Toast Notification (en haut à droite du body ou dans le header) -->
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 1055;">
+  <div id="addToCartToast" class="toast align-items-center text-white bg-success border-0"
+       role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body">
+        <strong>Produit ajouté au panier !</strong>
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto"
+              data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
     </div>
   </div>
 </nav>

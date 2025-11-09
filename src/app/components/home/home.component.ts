@@ -3,6 +3,7 @@ import { CartService } from '../../Services/cart.service';
 import { CommonModule } from '@angular/common';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { ToastComponent } from '../toast/toast.component';
+import { NotificationService } from '../../Services/notification.service';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class HomeComponent {
 ];
 
 
-  constructor(private cartService: CartService , private snackBar: MatSnackBar) {}
+  constructor(private cartService: CartService , private snackBar: MatSnackBar, private notificationService: NotificationService) {}
 
  addToCart(product: any) {
     const productToAdd = {
@@ -32,6 +33,7 @@ export class HomeComponent {
     };
 
     this.cartService.addToCart(productToAdd);
+    
 
     // ---- SMOOTH TOAST ----
     this.snackBar.openFromComponent(ToastComponent, {
