@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CartService } from '../../Services/cart.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { LanguageService } from '../../Services/language.service';
 
 
 @Component({
@@ -12,6 +13,7 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./order.component.css']
 })
 export class OrderComponent implements OnInit {
+
   cart: any[] = [];
   total: number = 0;
   customer = {
@@ -21,7 +23,7 @@ export class OrderComponent implements OnInit {
     phone: ''
   };
 
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService  , public languageService: LanguageService) {}
 
   ngOnInit(): void {
     this.cart = this.cartService.cart;

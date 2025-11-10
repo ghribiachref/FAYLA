@@ -1,25 +1,23 @@
 import { Component } from '@angular/core';
 import { CartService } from '../../Services/cart.service';
-import { CommonModule } from '@angular/common';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { CommonModule } from '@angular/common';
 import { ToastComponent } from '../toast/toast.component';
 
-
-
 @Component({
-  selector: 'app-home',
+  selector: 'app-shop',
   standalone: true,
   imports: [CommonModule , MatSnackBarModule],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  templateUrl: './shop.component.html',
+  styleUrl: './shop.component.css'
 })
-export class HomeComponent {
-   products = [
+export class ShopComponent {
+
+  products = [
   { id: 1, name: 'TISSOT PRX', price: 69, quantity: 1, image: 'assets/images/tsb.png' },
   { id: 2, name: 'CASIO QUARTZ', price: 59, quantity: 1, image: 'assets/images/cs.png' },
   { id: 3, name: 'Guess women', price: 79, quantity: 1, image: 'assets/images/guess.png' },
 ];
-
 
   constructor(private cartService: CartService , private snackBar: MatSnackBar) {}
 
@@ -44,7 +42,5 @@ export class HomeComponent {
       panelClass: ['success-toast']
     });
   }
-
-
 
 }

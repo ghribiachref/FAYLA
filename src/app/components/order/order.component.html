@@ -1,134 +1,87 @@
-<div class="container mt-5">
-  <h2 class="mb-4">Formulaire de commande</h2>
+<div class="container mt-5" [dir]="languageService.currentLang==='ar' ? 'rtl' : 'ltr'">
+
+  <h2 class="mb-4 text-center">
+    {{ languageService.currentLang==='en' ? 'Order Form' : 'نموذج الطلب' }}
+  </h2>
 
   <form (ngSubmit)="sendOrder()" #orderForm="ngForm">
-    <!-- Prénom -->
+    <!-- First Name -->
     <div class="mb-3">
-      <label class="form-label">Prénom <span class="text-danger">*</span></label>
-      <input
-        type="text"
-        class="form-control"
-        [(ngModel)]="customer.firstName"
-        name="firstName"
-        required
-        [class.is-invalid]="orderForm.submitted && !customer.firstName.trim()"
-      >
+      <label class="form-label">
+        {{ languageService.currentLang==='en' ? 'First Name' : 'الاسم الأول' }} <span class="text-danger">*</span>
+      </label>
+      <input type="text" class="form-control"
+             [(ngModel)]="customer.firstName"
+             name="firstName"
+             required
+             [class.is-invalid]="orderForm.submitted && !customer.firstName.trim()">
       <div class="invalid-feedback" *ngIf="orderForm.submitted && !customer.firstName.trim()">
-        Le prénom est requis.
+        {{ languageService.currentLang==='en' ? 'First name is required.' : 'الاسم الأول مطلوب.' }}
       </div>
     </div>
 
-    <!-- Nom -->
+    <!-- Last Name -->
     <div class="mb-3">
-      <label class="form-label">Nom <span class="text-danger">*</span></label>
-      <input
-        type="text"
-        class="form-control"
-        [(ngModel)]="customer.lastName"
-        name="lastName"
-        required
-        [class.is-invalid]="orderForm.submitted && !customer.lastName.trim()"
-      >
+      <label class="form-label">
+        {{ languageService.currentLang==='en' ? 'Last Name' : 'اللقب' }} <span class="text-danger">*</span>
+      </label>
+      <input type="text" class="form-control"
+             [(ngModel)]="customer.lastName"
+             name="lastName"
+             required
+             [class.is-invalid]="orderForm.submitted && !customer.lastName.trim()">
       <div class="invalid-feedback" *ngIf="orderForm.submitted && !customer.lastName.trim()">
-        Le nom est requis.
+        {{ languageService.currentLang==='en' ? 'Last name is required.' : 'اللقب مطلوب.' }}
       </div>
     </div>
 
-    <!-- Adresse -->
+    <!-- Address -->
     <div class="mb-3">
-      <label class="form-label">Adresse de livraison <span class="text-danger">*</span></label>
-      <input
-        type="text"
-        class="form-control"
-        [(ngModel)]="customer.address"
-        name="address"
-        required
-        [class.is-invalid]="orderForm.submitted && !customer.address.trim()"
-      >
+      <label class="form-label">
+        {{ languageService.currentLang==='en' ? 'Delivery Address' : 'عنوان التوصيل' }} <span class="text-danger">*</span>
+      </label>
+      <input type="text" class="form-control"
+             [(ngModel)]="customer.address"
+             name="address"
+             required
+             [class.is-invalid]="orderForm.submitted && !customer.address.trim()">
       <div class="invalid-feedback" *ngIf="orderForm.submitted && !customer.address.trim()">
-        L'adresse est requise.
+        {{ languageService.currentLang==='en' ? 'Address is required.' : 'العنوان مطلوب.' }}
       </div>
     </div>
 
-    <!-- Téléphone -->
+    <!-- Phone -->
     <div class="mb-3">
-      <label class="form-label">Téléphone <span class="text-danger">*</span></label>
-      <input
-        type="text"
-        class="form-control"
-        [(ngModel)]="customer.phone"
-        name="phone"
-        #phone="ngModel"
-        required
-        pattern="[0-9]{8}"
-        placeholder="98 123 456"
-        (input)="formatPhone()"
-        (paste)="onPaste($event)"
-        maxlength="11"
-        [class.is-invalid]="phone.invalid && getPhoneDigitsCount() !== 8"
-      />
-
-      <!-- Erreur : UNIQUEMENT si PAS 8 chiffres -->
-      <div class="invalid-feedback" *ngIf="phone.invalid && getPhoneDigitsCount() !== 8">
-        <span *ngIf="phone.errors?.['required']">Le téléphone est requis.</span>
-        <span *ngIf="phone.errors?.['pattern'] || getPhoneDigitsCount() !== 8">
-          Doit contenir <strong>exactement 8 chiffres</strong>.
-        </span>
+      <label class="form-label">
+        {{ languageService.currentLang==='en' ? 'Phone' : 'رقم الهاتف' }} <span class="text-danger">*</span>
+      </label>
+      <input type="text" class="form-control"
+             [(ngModel)]="customer.phone"
+             name="phone"
+             required
+             pattern="[0-9]{8}"
+             placeholder="98 123 456"
+             maxlength="11"
+             [class.is-invalid]="getPhoneDigitsCount() !== 8">
+      <div class="invalid-feedback" *ngIf="getPhoneDigitsCount() !== 8">
+        {{ languageService.currentLang==='en' ? 'Must contain exactly 8 digits.' : 'يجب أن يحتوي على 8 أرقام بالضبط.' }}
       </div>
-
-      <!-- COMPTEUR : vert à 8, rouge sinon -->
-      <small
-        class="d-block mt-1"
-        [class.text-success]="getPhoneDigitsCount() === 8"
-        [class.text-danger]="getPhoneDigitsCount() > 0 && getPhoneDigitsCount() < 8"
-        [class.text-muted]="getPhoneDigitsCount() === 0"
-      >
-        <strong>{{ getPhoneDigitsCount() }}</strong> sur 8 chiffres
+      <small class="d-block mt-1"
+             [class.text-success]="getPhoneDigitsCount() === 8"
+             [class.text-danger]="getPhoneDigitsCount() > 0 && getPhoneDigitsCount() < 8"
+             [class.text-muted]="getPhoneDigitsCount() === 0">
+        <strong>{{ getPhoneDigitsCount() }}</strong> {{ languageService.currentLang==='en' ? 'of 8 digits' : 'من 8 أرقام' }}
       </small>
     </div>
 
-    <!-- Récapitulatif -->
-    <div class="card mb-4">
-      <div class="card-header bg-primary text-white">
-        <h5 class="mb-0">Récapitulatif de votre commande</h5>
-      </div>
-      <div class="card-body p-0">
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item d-flex justify-content-between" *ngFor="let item of cart">
-            <span>{{ item.name }} <small class="text-muted">x {{ item.quantity }}</small></span>
-            <strong>{{ (item.price * item.quantity) | currency:'DT':'symbol':'1.0-0' }}</strong>
-          </li>
-          <li class="list-group-item d-flex justify-content-between">
-            <span>Livraison</span>
-            <span>7 DT</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between fw-bold fs-5">
-            <span>Total à payer</span>
-            <span class="text-primary">{{ (total + 7) | currency:'DT':'symbol':'1.0-0' }}</span>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Bouton d'envoi -->
-    <button
-      type="submit"
-      class="btn btn-success btn-lg w-100 d-flex align-items-center justify-content-center gap-2"
-      [disabled]="!isFormValid()"
-    >
-      <i class="bi bi-messenger"></i>
-      <span *ngIf="isFormValid(); else notReady">
-        Envoyer la commande via Messenger
-      </span>
-      <ng-template #notReady>
-        <span class="text-muted">
-          <strong>{{ getPhoneDigitsCount() }}</strong> sur 8 chiffres requis
-        </span>
-      </ng-template>
+    <!-- Submit -->
+    <button type="submit" class="btn btn-success btn-lg w-100 mt-3"
+            [disabled]="!isFormValid()">
+      {{ languageService.currentLang==='en' ? 'Send Order via Messenger' : 'إرسال الطلب عبر ماسنجر' }}
     </button>
 
     <p class="text-center mt-3 text-muted small">
-      Vous serez redirigé vers Messenger pour finaliser votre commande.
+      {{ languageService.currentLang==='en' ? 'You will be redirected to Messenger to finalize your order.' : 'سيتم توجيهك إلى ماسنجر لإكمال طلبك.' }}
     </p>
   </form>
 </div>

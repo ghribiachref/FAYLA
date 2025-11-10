@@ -1,25 +1,37 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, importProvidersFrom, OnDestroy, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CartService } from '../../Services/cart.service';
 import { Subscription } from 'rxjs';
 import { NotificationService } from '../../Services/notification.service';
 import { CommonModule } from '@angular/common';
 
+import { FormsModule } from '@angular/forms';
+import { LanguageService } from '../../Services/language.service';
+
+
+
+
+
 declare var bootstrap: any;
+
 @Component({
   selector: 'app-header',
-  imports: [RouterLink , CommonModule],
+  imports: [RouterLink, CommonModule , FormsModule ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+
+
   private toastEl: any;
   private toast: any;
   private sub!: Subscription;
 
   constructor(
     public cartService: CartService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    public languageService: LanguageService
+
   ) {}
 
   ngOnInit() {
@@ -40,5 +52,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
+  setLang(lang: 'en' | 'ar') {
+    this.languageService.setLanguage(lang);
   }
 
+}

@@ -1,50 +1,85 @@
 <!-- Start Header/Navigation -->
 <nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Furni navigation bar">
   <div class="container">
+
+    <!-- Logo -->
     <a class="navbar-brand d-flex align-items-center" href="#">
-  <img src="assets/images/logo-fayla.png" alt="FAYLA Shop en ligne" class="logo-img">
-</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+      <img src="assets/images/logo-fayla.png" alt="FAYLA Shop" class="logo-img">
+    </a>
+
+    <!-- Toggler mobile -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
+            aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarsFurni">
-      <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-        <li class="nav-item active"><a class="nav-link" href="#">Home</a></li>
-        <li><a class="nav-link" href="#">Shop</a></li>
-        <li><a class="nav-link" href="#">About us</a></li>
-        <li><a class="nav-link" href="#">Services</a></li>
-        <li><a class="nav-link" href="#">Blog</a></li>
-        <li><a class="nav-link" href="#">Contact us</a></li>
-      </ul>
-      <!-- Dans ton header (nav) -->
-<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-  <li><a class="nav-link" href="#"><img src="assets/images/user.svg" alt="user"></a></li>
-  <li class="position-relative">
-    <a class="nav-link" [routerLink]="'/cart'">
-      <img src="assets/images/cart.svg" alt="cart">
-      <!-- Badge avec le nombre total d'articles -->
-      <span *ngIf="cartService.cart.length > 0"
-            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-        {{ cartService.getTotalItems() }}
-        <span class="visually-hidden">articles dans le panier</span>
-      </span>
-    </a>
-  </li>
-</ul>
 
-<!-- Toast Notification (en haut à droite du body ou dans le header) -->
-<div class="position-fixed top-0 end-0 p-3" style="z-index: 1055;">
-  <div id="addToCartToast" class="toast align-items-center text-white bg-success border-0"
-       role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="d-flex">
-      <div class="toast-body">
-        <strong>Produit ajouté au panier !</strong>
+    <!-- Navbar content -->
+    <div class="collapse navbar-collapse" id="navbarsFurni">
+
+      <!-- Main navigation -->
+      <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">
+            {{ languageService.currentLang === 'en' ? 'Home' : 'الرئيسية' }}
+          </a>
+        </li>
+        <li>
+          <a class="nav-link" routerLink="/shop">
+            {{ languageService.currentLang === 'en' ? 'Shop' : 'المتجر' }}
+          </a>
+        </li>
+        <li>
+          <a class="nav-link" href="https://www.facebook.com/profile.php?id=61550078978768&locale=fr_FR" target="_blank">
+            {{ languageService.currentLang === 'en' ? 'Contact us' : 'اتصل بنا' }}
+          </a>
+        </li>
+      </ul>
+
+      <!-- Right side: Language + Cart -->
+      <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5 align-items-center">
+
+        <!-- Language dropdown -->
+        <li class="nav-item dropdown me-3">
+          <button class="nav-link dropdown-toggle btn btn-link p-0" type="button"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+            🌐 {{ languageService.currentLang === 'en' ? 'EN' : 'AR' }}
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" (click)="setLang('en')">English</a></li>
+            <li><a class="dropdown-item" (click)="setLang('ar')">عربي</a></li>
+          </ul>
+        </li>
+
+        <!-- Cart icon -->
+        <li class="position-relative">
+          <a class="nav-link" [routerLink]="'/cart'">
+            <img src="assets/images/cart.svg" alt="cart">
+            <span *ngIf="cartService.cart.length > 0"
+                  class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              {{ cartService.getTotalItems() }}
+              <span class="visually-hidden">
+                {{ languageService.currentLang==='en' ? 'items in cart' : 'العناصر في السلة' }}
+              </span>
+            </span>
+          </a>
+        </li>
+
+      </ul>
+
+      <!-- Toast Notification -->
+      <div class="position-fixed top-0 end-0 p-3" style="z-index: 1055;">
+        <div id="addToCartToast" class="toast align-items-center text-white bg-success border-0"
+             role="alert" aria-live="assertive" aria-atomic="true">
+          <div class="d-flex">
+            <div class="toast-body">
+              <strong>{{ languageService.currentLang==='en' ? 'Product added to cart!' : 'تم إضافة المنتج إلى السلة!' }}</strong>
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                    data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+        </div>
       </div>
-      <button type="button" class="btn-close btn-close-white me-2 m-auto"
-              data-bs-dismiss="toast" aria-label="Close"></button>
-    </div>
-  </div>
-</div>
+
     </div>
   </div>
 </nav>

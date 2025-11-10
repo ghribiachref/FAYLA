@@ -3,6 +3,7 @@ import { CartService } from '../../Services/cart.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { LanguageService } from '../../Services/language.service';
 
 @Component({
   selector: 'app-cart',
@@ -13,7 +14,8 @@ import { RouterLink } from '@angular/router';
 })
 export class CartComponent {
 
-  constructor(public cartService: CartService) {}
+
+  constructor(public cartService: CartService , public languageService: LanguageService) {}
 
   increase(product: any) {
     product.quantity++;
