@@ -60,3 +60,22 @@
   color: #fff;
 }
 
+
+.custom-navbar-nav .nav-link {
+  white-space: nowrap;
+  padding: 0.5rem 0.75rem !important;
+}
+
+.custom-navbar-cta {
+  min-width: fit-content;
+}
+
+@media (max-width: 768px) {
+  .navbar-collapse {
+    text-align: center;
+  }
+
+  .custom-navbar-nav {
+    margin-bottom: 1rem !important;
+  }
+}

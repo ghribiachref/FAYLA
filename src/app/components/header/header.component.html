@@ -2,58 +2,64 @@
 <nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Furni navigation bar">
   <div class="container">
 
-    <!-- Logo -->
-    <a class="navbar-brand d-flex align-items-center" href="#">
-      <img src="assets/images/logo-fayla.png" alt="FAYLA Shop" class="logo-img">
-    </a>
+    <!-- Logo et Panier alignés -->
+    <div class="d-flex align-items-center w-100">
 
-    <!-- Toggler mobile -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
-            aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+      <!-- Logo -->
+      <a class="navbar-brand d-flex align-items-center me-auto" href="#">
+        <img src="assets/images/logo-fayla.png" alt="FAYLA Shop" class="logo-img">
+      </a>
+
+      <!-- Cart icon - positionné à droite du logo -->
+      <div class="position-relative me-3 d-md-none">
+        <a class="nav-link" [routerLink]="'/cart'">
+          <img src="assets/images/cart.svg" alt="cart" width="24" height="24">
+          <span *ngIf="cartService.cart.length > 0"
+                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            {{ cartService.getTotalItems() }}
+            <span class="visually-hidden">
+              {{ languageService.currentLang==='en' ? 'items in cart' : 'العناصر في السلة' }}
+            </span>
+          </span>
+        </a>
+      </div>
+
+      <!-- Toggler mobile -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
+              aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
 
     <!-- Navbar content -->
     <div class="collapse navbar-collapse" id="navbarsFurni">
 
-      <!-- Main navigation -->
-      <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+      <!-- Main navigation - avec flex-wrap nowrap -->
+      <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0 flex-nowrap">
         <li class="nav-item active">
           <a class="nav-link" href="#">
             {{ languageService.currentLang === 'en' ? 'Home' : 'الرئيسية' }}
           </a>
         </li>
-        <li>
+        <li class="nav-item">
           <a class="nav-link" routerLink="/shop">
             {{ languageService.currentLang === 'en' ? 'Shop' : 'المتجر' }}
           </a>
         </li>
-        <li>
+        <li class="nav-item">
           <a class="nav-link" href="https://www.facebook.com/profile.php?id=61550078978768&locale=fr_FR" target="_blank">
             {{ languageService.currentLang === 'en' ? 'Contact us' : 'اتصل بنا' }}
           </a>
         </li>
       </ul>
 
-      <!-- Right side: Language + Cart -->
-      <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5 align-items-center">
+      <!-- Right side: Language + Cart (version desktop) -->
+      <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-3 align-items-center flex-nowrap">
 
-        <!-- Language dropdown -->
-        <li class="nav-item dropdown me-3">
-          <button class="nav-link dropdown-toggle btn btn-link p-0" type="button"
-                  data-bs-toggle="dropdown" aria-expanded="false">
-            🌐 {{ languageService.currentLang === 'en' ? 'EN' : 'AR' }}
-          </button>
-          <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" (click)="setLang('en')">English</a></li>
-            <li><a class="dropdown-item" (click)="setLang('ar')">عربي</a></li>
-          </ul>
-        </li>
-
-        <!-- Cart icon -->
-        <li class="position-relative">
+        <!-- Cart icon - version desktop -->
+        <li class="nav-item position-relative d-none d-md-block me-3">
           <a class="nav-link" [routerLink]="'/cart'">
-            <img src="assets/images/cart.svg" alt="cart">
+            <img src="assets/images/cart.svg" alt="cart" width="24" height="24">
             <span *ngIf="cartService.cart.length > 0"
                   class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
               {{ cartService.getTotalItems() }}
@@ -62,6 +68,18 @@
               </span>
             </span>
           </a>
+        </li>
+
+        <!-- Language dropdown -->
+        <li class="nav-item dropdown">
+          <button class="nav-link dropdown-toggle btn btn-link p-0" type="button"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+            🌐 {{ languageService.currentLang === 'en' ? 'EN' : 'AR' }}
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" (click)="setLang('en')">English</a></li>
+            <li><a class="dropdown-item" (click)="setLang('ar')">عربي</a></li>
+          </ul>
         </li>
 
       </ul>
