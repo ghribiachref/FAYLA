@@ -1,0 +1,9 @@
+/* Smooth slide effect on click */
+.slide-btn {
+  position: relative;
+  transition: transform 0.2s ease; /* smooth animation */
+}
+
+.slide-btn:active {
+  transform: translateY(5px); /* moves button down 5px when clicked */
+}

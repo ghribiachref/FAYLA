@@ -7,9 +7,10 @@
           <h1>Discover <span class="d-block">Amazing Deals</span></h1>
           <p class="mb-4">FAYLA is your online shop for high-quality products at unbeatable prices. Shop now and enjoy exclusive discounts!</p>
           <p>
-            <a href="#" class="btn btn-secondary me-2">Shop Now</a>
-            <a href="#" class="btn btn-white-outline">Explore Products</a>
+          <a class="btn btn-secondary me-2" routerLink="/shop">Shop Now</a>
+          <button class="btn btn-white-outline" (click)="scrollToProducts()">Explore Products</button>
           </p>
+
 
         </div>
       </div>
@@ -24,33 +25,33 @@
 <!-- End Hero -->
 
 <!-- Start Product Section -->
-<div class="product-section">
+<div class="product-section" id="product-section">
   <div class="container">
     <div class="row">
       <div class="col-md-12 col-lg-3 mb-5 mb-lg-0">
- <h2 class="mb-4 section-title">Premium Products, Unbeatable Prices</h2>
+        <h2 class="mb-4 section-title">Premium Products, Unbeatable Prices</h2>
+        <p class="mb-4">
+          We offer products of excellent quality at the most competitive prices in the Tunisian market.
+          Our goal is always to stay ahead of our clients' expectations and provide them with the best experience.
+        </p>
+        <p><a class="btn" routerLink="/shop">Explore</a></p>
+      </div>
+      <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0" *ngFor="let product of products">
+        <div class="product-item">
+          <img [src]="product.image" class="img-fluid product-thumbnail" [alt]="product.name">
+          <h3 class="product-title">{{ product.name }}</h3>
+          <strong class="product-price">{{ product.price }} DT</strong>
 
-  <p class="mb-4">
-    We offer products of excellent quality at the most competitive prices in the Tunisian market.
-    Our goal is always to stay ahead of our clients' expectations and provide them with the best experience.
-  </p>
-  <p><a href="#" class="btn">Explore</a></p>
-</div>
-
-
-     <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0" *ngFor="let product of products">
-  <div class="product-item">
-    <img [src]="product.image" class="img-fluid product-thumbnail" [alt]="product.name">
-    <h3 class="product-title">{{ product.name }}</h3>
-    <strong class="product-price">{{ product.price }} DT</strong>
-
-    <span class="icon-cross" (click)="addToCart(product); $event.stopPropagation(); $event.preventDefault()">
-      <img src="assets/images/cross.svg" class="img-fluid" alt="Add to Cart">
-    </span>
+          <span class="icon-cross" (click)="addToCart(product); $event.stopPropagation(); $event.preventDefault()">
+            <img src="assets/images/cross.svg" class="img-fluid" alt="Add to Cart">
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-
 <!-- End Product Section -->
+
 
 <!-- Start Why Choose Us Section -->
 <div class="why-choose-section">

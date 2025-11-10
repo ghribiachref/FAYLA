@@ -3,13 +3,14 @@ import { CartService } from '../../Services/cart.service';
 import { CommonModule } from '@angular/common';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { ToastComponent } from '../toast/toast.component';
+import { RouterLink } from '@angular/router';
 
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule , MatSnackBarModule],
+  imports: [CommonModule , MatSnackBarModule, RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -45,6 +46,12 @@ export class HomeComponent {
     });
   }
 
+scrollToProducts() {
+  const element = document.getElementById('product-section');
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
 
 
 }
