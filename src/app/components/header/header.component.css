@@ -11,13 +11,11 @@
 /* Responsive */
 @media (max-width: 768px) {
   .logo-img {
-    height: 20vw; /* hauteur = 20% de la largeur de l’écran */
-    max-height: 100px; /* limite pour qu’il ne devienne pas trop grand */
+    height: 20vw; /* hauteur = 20% de la largeur de l'écran */
+    max-height: 100px; /* limite pour qu'il ne devienne pas trop grand */
     width: auto;
   }
 }
-
-
 
 /* Language dropdown button */
 .nav-item.dropdown .nav-link {
@@ -60,7 +58,6 @@
   color: #fff;
 }
 
-
 .custom-navbar-nav .nav-link {
   white-space: nowrap;
   padding: 0.5rem 0.75rem !important;
@@ -70,12 +67,23 @@
   min-width: fit-content;
 }
 
+/* Alignement à gauche pour la navigation principale */
+.custom-navbar-nav.navbar-nav {
+  margin-right: auto !important;
+}
+
 @media (max-width: 768px) {
   .navbar-collapse {
-    text-align: center;
+    text-align: left;
   }
 
   .custom-navbar-nav {
     margin-bottom: 1rem !important;
+    text-align: left !important;
+  }
+
+  /* S'assurer que les éléments de nav sont alignés à gauche en mobile */
+  .custom-navbar-nav .nav-item {
+    text-align: left;
   }
 }

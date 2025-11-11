@@ -1,60 +1,128 @@
-<!-- cart.component.html -->
-<div class="cart-container" *ngIf="cartService.cart.length > 0; else emptyCart"
-     [dir]="languageService.currentLang==='ar' ? 'rtl' : 'ltr'">
+<!-- PANIER VIDE - DÉFINI EN PREMIER -->
+<ng-template #emptyCart>
+  <div class="text-center py-5">
+    <h3>{{ languageService.currentLang === 'en' ? 'Your cart is empty' : 'سلة مشترياتك فارغة' }}</h3>
+    <a routerLink="/home" class="btn btn-outline-primary mt-3">
+      {{ languageService.currentLang === 'en' ? 'Continue Shopping' : 'متابعة التسوق' }}
+    </a>
+  </div>
+</ng-template>
+
+<!-- PANIER AVEC PRODUITS -->
+<div class="cart-container"
+     *ngIf="cartService.cart.length > 0; else emptyCart"
+     [dir]="languageService.currentLang === 'ar' ? 'rtl' : 'ltr'">
 
   <h2 class="text-center mb-4">
-    {{ languageService.currentLang==='en' ? 'Your Cart' : 'سلة مشترياتك' }}
+    {{ languageService.currentLang === 'en' ? 'Your Cart' : 'سلة مشترياتك' }}
   </h2>
 
   <div class="table-responsive">
     <table class="cart-table table align-middle">
       <thead class="table-dark">
         <tr>
-          <th>{{ languageService.currentLang==='en' ? 'Image' : 'صورة' }}</th>
-          <th>{{ languageService.currentLang==='en' ? 'Product' : 'المنتج' }}</th>
-          <th>{{ languageService.currentLang==='en' ? 'Price' : 'السعر' }}</th>
-          <th>{{ languageService.currentLang==='en' ? 'Quantity' : 'الكمية' }}</th>
-          <th>{{ languageService.currentLang==='en' ? 'Total' : 'المجموع' }}</th>
-          <th>{{ languageService.currentLang==='en' ? 'Remove' : 'حذف' }}</th>
+          <th>{{ languageService.currentLang === 'en' ? 'Image' : 'صورة' }}</th>
+          <th>{{ languageService.currentLang === 'en' ? 'Product' : 'المنتج' }}</th>
+          <th>{{ languageService.currentLang === 'en' ? 'Price' : 'السعر' }}</th>
+          <th>{{ languageService.currentLang === 'en' ? 'Quantity' : 'الكمية' }}</th>
+          <th>{{ languageService.currentLang === 'en' ? 'Total' : 'المجموع' }}</th>
+          <th>{{ languageService.currentLang === 'en' ? 'Remove' : 'حذف' }}</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let product of cartService.cart">
-          <td><img [src]="product.image" alt="{{product.name}}" class="cart-img"></td>
-          <td>{{ product.name }}</td>
-          <td>{{ product.price | currency:'DT':'symbol':'1.0-0' }}</td>
-          <td>
+          <!-- Image -->
+          <td [attr.data-label]="languageService.currentLang === 'en' ? 'Image' : 'صورة'" class="text-center product-image-cell">
+            <img [src]="product.image" [alt]="product.name" class="cart-img">
+          </td>
+
+          <!-- Nom du produit -->
+          <td [attr.data-label]="languageService.currentLang === 'en' ? 'Product' : 'المنتج'">
+            {{ product.name }}
+          </td>
+
+          <!-- Prix unitaire -->
+          <td [attr.data-label]="languageService.currentLang === 'en' ? 'Price' : 'السعر'">
+            <span [ngClass]="{'price-rtl': languageService.currentLang === 'ar'}">
+              {{ product.price | number:'1.0-0' }}
+              <span class="currency-symbol">
+                {{ languageService.currentLang === 'en' ? 'DT' : 'دت' }}
+              </span>
+            </span>
+          </td>
+
+          <!-- Quantité -->
+          <td [attr.data-label]="languageService.currentLang === 'en' ? 'Quantity' : 'الكمية'">
             <div class="qty-buttons d-flex align-items-center gap-2">
-              <button class="btn btn-sm btn-outline-secondary" (click)="decrease(product)">-</button>
+              <button class="btn btn-sm" (click)="decrease(product)">-</button>
               <input type="number" [(ngModel)]="product.quantity"
                      (change)="cartService.updateQuantity(product.id, product.quantity)"
-                     min="1" class="form-control form-control-sm text-center" style="width:60px;">
-              <button class="btn btn-sm btn-outline-secondary" (click)="increase(product)">+</button>
+                     min="1" class="text-center">
+              <button class="btn btn-sm" (click)="increase(product)">+</button>
             </div>
           </td>
-          <td>{{ product.price * product.quantity | currency:'DT':'symbol':'1.0-0' }}</td>
-          <td><button class="btn btn-sm btn-danger" (click)="remove(product)">X</button></td>
+
+          <!-- Total ligne -->
+          <td [attr.data-label]="languageService.currentLang === 'en' ? 'Total' : 'المجموع'">
+            <span [ngClass]="{'price-rtl': languageService.currentLang === 'ar'}">
+              {{ (product.price * product.quantity) | number:'1.0-0' }}
+              <span class="currency-symbol">
+                {{ languageService.currentLang === 'en' ? 'DT' : 'دت' }}
+              </span>
+            </span>
+          </td>
+
+          <!-- Supprimer -->
+          <td [attr.data-label]="languageService.currentLang === 'en' ? 'Remove' : 'حذف'">
+            <button class="remove-btn" (click)="remove(product)">X</button>
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
 
+  <!-- Total général -->
   <div class="cart-total mt-3 d-flex justify-content-between align-items-center flex-column flex-md-row gap-3">
-    <h3>
-      {{ languageService.currentLang==='en' ? 'Total:' : 'المجموع:' }}
-      {{ cartService.getTotal() | currency:'DT':'symbol':'1.0-0' }}
-    </h3>
+    <div>
+      <!-- Sous-total -->
+      <h3>
+        {{ languageService.currentLang === 'en' ? 'Subtotal:' : 'المجموع الفرعي:' }}
+        <span [ngClass]="{'price-rtl': languageService.currentLang === 'ar'}">
+          {{ cartService.getTotal() | number:'1.0-0' }}
+          <span class="currency-symbol">
+            {{ languageService.currentLang === 'en' ? 'DT' : 'دت' }}
+          </span>
+        </span>
+      </h3>
+
+      <!-- Frais de livraison -->
+      <h4 class="mt-2 text-muted">
+        {{ languageService.currentLang === 'en' ? 'Delivery Fee:' : 'مصاريف التوصيل:' }}
+        <span [ngClass]="{'price-rtl': languageService.currentLang === 'ar'}">
+          7
+          <span class="currency-symbol">
+            {{ languageService.currentLang === 'en' ? 'DT' : 'دت' }}
+          </span>
+        </span>
+      </h4>
+
+      <!-- Total avec livraison -->
+      <h3 class="mt-2 fw-bold">
+        {{ languageService.currentLang === 'en' ? 'Total (incl. delivery):' : 'المجموع (مع التوصيل):' }}
+        <span [ngClass]="{'price-rtl': languageService.currentLang === 'ar'}">
+          {{ (cartService.getTotal() + 7) | number:'1.0-0' }}
+          <span class="currency-symbol">
+            {{ languageService.currentLang === 'en' ? 'DT' : 'دت' }}
+          </span>
+        </span>
+      </h3>
+
+      
+    </div>
+
+    <!-- Bouton checkout -->
     <button class="checkout-btn btn btn-primary btn-lg w-100 w-md-auto" routerLink="/order">
-      {{ languageService.currentLang==='en' ? 'Proceed to Checkout' : 'إتمام الطلب' }}
+      {{ languageService.currentLang === 'en' ? 'Proceed to Checkout' : 'إتمام الطلب' }}
     </button>
   </div>
 </div>
-
-<ng-template #emptyCart>
-  <div class="text-center py-5">
-    <h3>{{ languageService.currentLang==='en' ? 'Your cart is empty' : 'سلة مشترياتك فارغة' }}</h3>
-    <a routerLink="/home" class="btn btn-outline-primary mt-3">
-      {{ languageService.currentLang==='en' ? 'Continue Shopping' : 'متابعة التسوق' }}
-    </a>
-  </div>
-</ng-template>
